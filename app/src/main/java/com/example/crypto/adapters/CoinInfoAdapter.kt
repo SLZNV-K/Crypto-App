@@ -2,15 +2,15 @@ package com.example.crypto.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crypto.R
+import com.example.crypto.databinding.ItemCoinInfoBinding
 import com.example.crypto.pojo.CoinPriceInfo
-import kotlinx.android.synthetic.main.item_coin_info.view.*
 import com.squareup.picasso.Picasso
 
-class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+class CoinInfoAdapter(private val context: Context) :
+    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
 
     var coinInfoList: List<CoinPriceInfo> = listOf()
         set(value) {
@@ -21,8 +21,7 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
     var onCoinClickListener: OnCoinClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_coin_info, parent, false)
+        val view = ItemCoinInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CoinInfoViewHolder(view)
     }
 
@@ -45,16 +44,17 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
 
     override fun getItemCount() = coinInfoList.size
 
-    inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivLogoCoin = itemView.ivLogoCoin
-        val tvSymbols = itemView.tvSymbols
-        val tvCoinPrice = itemView.tvCoinPrice
-        val tvLastUpdate = itemView.tvLastUpdate
+    inner class CoinInfoViewHolder(binding: ItemCoinInfoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val ivLogoCoin = binding.ivLogoCoin
+        val tvSymbols = binding.tvSymbols
+        val tvCoinPrice = binding.tvCoinPrice
+        val tvLastUpdate = binding.tvLastUpdate
     }
 
-    interface OnCoinClickListener{
-        fun onCoinClick(coinPriceInfo: CoinPriceInfo){
-
+    interface OnCoinClickListener {
+        fun onCoinClick(coinPriceInfo: CoinPriceInfo) {
         }
     }
+
 }
